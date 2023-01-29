@@ -33,6 +33,9 @@ export const useCentreStore = defineStore('centre', {
         this.data = res.data
       })
     },
+    setCentreDetailByCentre(centre: Centre) {
+      this.data = centre
+    },
     setTrainerList(centre_id: string) {
       fetchTrainerList(centre_id).then((res) => {
         this.trainerList = res.data
@@ -45,6 +48,6 @@ export const useCentreStore = defineStore('centre', {
     },
     clearReservationList() {
       this.reservationList = null
-    }
+    },
   }
 });

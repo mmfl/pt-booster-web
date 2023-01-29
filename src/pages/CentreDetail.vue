@@ -9,8 +9,21 @@ const route = useRoute();
 const centreId = route.params.centreId as string
 
 const centreStore = useCentreStore()
-centreStore.setCentreDetail(centreId)
+
 centreStore.setTrainerList(centreId)
+
+
+if (centreStore.list) {
+  const centre = centreStore.list.find(centre => `${centre.id}` === centreId)
+  if (centre) {
+    centreStore.setCentreDetailByCentre(centre)
+  } else {
+    centreStore.setCentreDetail(centreId)
+  }
+} else {
+  centreStore.setCentreDetail(centreId)
+}
+
 
 watch(() => route.params.trainerId, (newTrainerId, oldTrainerId) => {
   if (newTrainerId) {
@@ -26,12 +39,8 @@ watch(() => route.params.trainerId, (newTrainerId, oldTrainerId) => {
 <template>
   <h1>{{ centreStore.data?.name }}</h1>
   <div class="container">
-    <TrainerList
-      :trainer-list="centreStore.trainerList"
-    />
-    <ReservationList
-      :reservation-list="centreStore.reservationList"
-    />
+    <TrainerList :trainer-list="centreStore.trainerList" />
+    <ReservationList :reservation-list="centreStore.reservationList" />
   </div>
 </template>
 

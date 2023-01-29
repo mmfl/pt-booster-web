@@ -14,8 +14,11 @@ router.beforeEach((to, from, next) => {
   const authRequired = to.matched.some((route) => route.meta.authRequired);
 
   if (authRequired) {
-    if (isAuthenticated) next();
-    else next('/');
+    if (isAuthenticated) {
+      next();
+    } else {
+      next('/');
+    }
   } else {
     next()
   }
