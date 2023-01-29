@@ -31,7 +31,7 @@ if (authTokenStore.isAuthenticated) {
 <template>
   <nav v-if="authTokenStore.isAuthenticated">
     <span>
-      {{ userStore.uid }}
+      {{ userStore.profile.name }} ({{ userStore.role }})
     </span>
     <button @click="logout">
       로그아웃

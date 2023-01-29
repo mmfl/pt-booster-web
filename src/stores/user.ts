@@ -6,6 +6,10 @@ import { useAuthTokenStore } from './authToken';
 interface State {
   id: string;
   uid: string;
+  role: string;
+  profile: {
+    name: string;
+  }
 }
 
 
@@ -13,6 +17,10 @@ export const useUserStore = defineStore('user', {
   state: (): State => ({
     id: '',
     uid: '',
+    role: '',
+    profile: {
+      name: '',
+    }
   }),
   getters: {
   },
@@ -27,6 +35,8 @@ export const useUserStore = defineStore('user', {
       }).then((res) => {
         this.id = res.data.id
         this.uid = res.data.uid
+        this.role = res.data.role
+        this.profile.name = res.data.profile.name
       }).catch((err) => {
         console.log(err)
       })

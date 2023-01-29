@@ -25,6 +25,8 @@ axios.post('https://kauth.kakao.com/oauth/token', qs.stringify({
   userStore.setUser()
 
   router.replace('/centres')
+}).catch(err => {
+  console.log(err)
 })
 
 </script>

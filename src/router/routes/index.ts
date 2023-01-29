@@ -23,6 +23,22 @@ const routes = [
       authRequired: true,
     }
   },
+  {
+    path: '/centres/:centreId',
+    name: 'centre-detail',
+    component: () => import('../../pages/CentreDetail.vue'),
+    meta: {
+      authRequired: true,
+    }
+  },
+  {
+    path: '/centres/:centreId/trainers/:trainerId',
+    name: 'trainer-detail',
+    component: () => import('../../pages/CentreDetail.vue'),
+    meta: {
+      authRequired: true,
+    }
+  },
 ];
 
 export default routes;

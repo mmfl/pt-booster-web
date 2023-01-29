@@ -10,8 +10,10 @@ centreStore.setCentreList()
 <template>
   <h1>센터 목록</h1>
   <ul>
-    <li v-for="centre in centreStore.data" :key="centre.id">
-      {{ centre.name }}
+    <li v-for="centre in centreStore.list" :key="centre.id">
+      <router-link :to="{ name: 'centre-detail', params: { centreId: centre.id }}">
+        {{ centre.name }}
+      </router-link>
     </li>
   </ul>
 </template>
