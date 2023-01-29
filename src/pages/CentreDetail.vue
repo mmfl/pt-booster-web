@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { watch } from 'vue';
 import { useRoute } from 'vue-router'
 import { useCentreStore } from '../stores/centre'
 import TrainerList from '../components/TrainerList.vue'
 import ReservationList from '../components/ReservationList.vue'
-import { watch } from 'vue';
 
 const route = useRoute();
 const centreId = route.params.centreId as string
@@ -37,16 +37,12 @@ watch(() => route.params.trainerId, (newTrainerId, oldTrainerId) => {
 </script>
 
 <template>
-  <h1>{{ centreStore.data?.name }}</h1>
-  <div class="container">
+  <h1 class="text-2xl mb-4">{{ centreStore.data?.name }}</h1>
+  <div class="flex">
     <TrainerList :trainer-list="centreStore.trainerList" />
     <ReservationList :reservation-list="centreStore.reservationList" />
   </div>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: row;
-}
 </style>

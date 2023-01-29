@@ -29,21 +29,39 @@ if (authTokenStore.isAuthenticated) {
 </script>
 
 <template>
-  <nav v-if="authTokenStore.isAuthenticated">
-    <span>
-      {{ userStore.profile.name }} ({{ userStore.role }})
-    </span>
-    <button @click="logout">
-      로그아웃
-    </button>
+  <nav class="nav" v-if="authTokenStore.isAuthenticated">
+    <div>
+      <span>
+        {{ userStore.profile.name }} ({{ userStore.role }})
+      </span>
+      <button class="button button-logout" @click="logout">
+        로그아웃
+      </button>
+    </div>
   </nav>
-  <nav v-else>
-    <button @click="loginWithKakao">
-      카카오 계정으로 로그인
-    </button>
+  <nav class="nav" v-else>
+    <div>
+      <button class="button button-login" @click="loginWithKakao">
+        카카오 계정으로 로그인
+      </button>
+    </div>
   </nav>
 </template>
 
 <style scoped>
+.nav {
+  @apply flex justify-end p-4 mb-4
+}
 
+.nav .button {
+  @apply px-4 py-2 rounded ml-4
+}
+
+.button.button-login {
+  @apply bg-violet-600 text-slate-200 
+}
+
+.button.button-logout {
+  @apply bg-rose-600 text-slate-200
+}
 </style>

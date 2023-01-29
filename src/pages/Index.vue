@@ -12,7 +12,9 @@ if (authTokenStore.isAuthenticated) {
 </script>
 
 <template>
-  <h1>PT Booster</h1>
+  <div>
+    <h1>PT Booster</h1>
+  </div>
 </template>
 
 <style scoped>
