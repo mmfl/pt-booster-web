@@ -17,10 +17,10 @@ interface State {
 
 export const useCentreStore = defineStore('centre', {
   state: (): State => ({
-    list: null,
+    list: [],
     data: null,
-    reservationList: null,
-    trainerList: null,
+    reservationList: [],
+    trainerList: [],
   }),
   actions: {
     setCentreList() {
@@ -36,18 +36,18 @@ export const useCentreStore = defineStore('centre', {
     setCentreDetailByCentre(centre: Centre) {
       this.data = centre
     },
-    setTrainerList(centre_id: string) {
-      fetchTrainerList(centre_id).then((res) => {
+    setTrainerList(centreId: string) {
+      fetchTrainerList(centreId).then((res) => {
         this.trainerList = res.data
       })
     },
-    setReservationList(centre_id: string, trainer_id: string) {
-      fetchReservationList(centre_id, trainer_id).then((res) => {
+    setReservationList(centreId: string, trainerId: string, date: string) {
+      fetchReservationList(centreId, trainerId, date).then((res) => {
         this.reservationList = res.data
       })
     },
     clearReservationList() {
-      this.reservationList = null
+      this.reservationList = []
     },
   }
 });
