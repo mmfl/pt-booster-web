@@ -1,28 +1,27 @@
 import { defineStore } from 'pinia';
-import Reservation from '../domain/reservation/Reservation';
-import { fetchReservationList } from '../domain/reservation/ReservationClient';
-
+import Reservation, { ReservationListWithDate } from '../domain/reservation/Reservation';
+import ReservationService from '../domain/reservation/ReservationService';
 
 interface State {
   isLoaded: boolean,
-  list: Reservation[] | null,
+  data: ReservationListWithDate | null,
 }
 
 
 export const useReservationStore = defineStore('reservation', {
   state: (): State => ({
     isLoaded: false,
-    list: [],
+    data: null as ReservationListWithDate | null,
   }),
   actions: {
-    setReservationList(centreId: string, trainerId: string, date: string) {
-      fetchReservationList(centreId, trainerId, date).then((res) => {
-        this.list = res.data
+    setReservationList(centreId: string, trainerId: string, startDate: string, endDate?: string) {    
+      ReservationService.getReservationList(centreId, trainerId, startDate, endDate).then((ReservationListWithDate) => {
+        this.data = ReservationListWithDate
         this.isLoaded = true
       })
     },
     clearReservationList() {
-      this.list = []
+      this.data = null
       this.isLoaded = false
     },
   }

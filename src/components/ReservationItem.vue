@@ -3,7 +3,7 @@
 const props = defineProps<{
   reservation: {
     id: number 
-    date: Date
+    date: string
     hour: number
     minute: number
     duration: number
@@ -25,9 +25,9 @@ const endMinute = props.reservation.minute + props.reservation.duration % 60
   <div class="reservation__name">{{ reservation.member.profile.name }}</div>
   <div>
       <span>{{ reservation.hour }}시 <span v-if="reservation.minute">{{ reservation.minute }}분</span></span>
-      <span> ~ </span>
+      <span> - </span>
       <span>{{ endHour }}시 <span v-if="endMinute">{{ endMinute }}분</span></span> ({{ reservation.duration }}분)</div>
-</div>
+  </div>
 </template>
 
 <style scoped>
