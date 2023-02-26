@@ -2,7 +2,9 @@
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { useCentreStore } from '../stores/centre'
+import { useReservationStore } from '../stores/reservation';
 import TrainerList from '../components/TrainerList.vue'
+import DatePicker from '../components/DatePicker.vue'
 import ReservationList from '../components/ReservationList.vue'
 
 const route = useRoute();
@@ -10,6 +12,7 @@ const router = useRouter();
 const centreId = route.params.centreId as string
 
 const centreStore = useCentreStore()
+const reservationStore = useReservationStore()
 
 centreStore.setTrainerList(centreId)
 
@@ -36,9 +39,9 @@ watch(() => route.params.trainerId, (newTrainerId) => {
   const date = route.query.date as string || getCurrentLocalDate()
   if (newTrainerId) {
     const tainerId = newTrainerId as string
-    centreStore.setReservationList(centreId, tainerId, date)
+    reservationStore.setReservationList(centreId, tainerId, date)
   } else {
-    centreStore.clearReservationList()
+    reservationStore.clearReservationList()
   }
 }, { immediate: true })
 
@@ -46,7 +49,8 @@ watch(() => route.params.trainerId, (newTrainerId) => {
 watch(() => route.query.date, (newDate) => {
   const trainerId = route.params.trainerId as string
   if (trainerId) {
-    centreStore.setReservationList(centreId, trainerId, newDate as string)
+    reservationStore.clearReservationList()
+    reservationStore.setReservationList(centreId, trainerId, newDate as string)
   }
 })
 
@@ -55,11 +59,16 @@ watch(() => route.query.date, (newDate) => {
 
 <template>
   <h1 class="text-2xl mb-4">
-    <button class="chevron" @click="router.push({ name: 'centre-list' })"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="ffffff" d="M9.78 12.78a.75.75 0 0 1-1.06 0L4.47 8.53a.75.75 0 0 1 0-1.06l4.25-4.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L6.06 8l3.72 3.72a.75.75 0 0 1 0 1.06Z"></path></svg></button> {{ centreStore.data?.name }}
+    <button class="chevron" @click="() => router.push({ name: 'centre-list' })"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="ffffff" d="M9.78 12.78a.75.75 0 0 1-1.06 0L4.47 8.53a.75.75 0 0 1 0-1.06l4.25-4.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L6.06 8l3.72 3.72a.75.75 0 0 1 0 1.06Z"></path></svg></button> {{ centreStore.data?.name }}
   </h1>
   <div class="flex">
     <TrainerList :trainer-list="centreStore.trainerList" />
-    <ReservationList :reservation-list="centreStore.reservationList"/>
+    <div class="flex-auto">
+      <div v-show="route.params.trainerId">
+        <DatePicker />
+      </div>
+      <ReservationList :reservation-list="reservationStore.list"/>
+    </div>
   </div>
 </template>
 
