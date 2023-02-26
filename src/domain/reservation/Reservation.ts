@@ -5,12 +5,12 @@ export default class Reservation {
   id: number;
   trainer: string;
   member: User;
-  date: Date;
+  date: string;
   hour: number;
   minute: number;
   duration: number;
 
-  constructor(id: number, trainer: string, member: User, date: Date, hour: number, minute: number, duration: number) {
+  constructor(id: number, trainer: string, member: User, date: string, hour: number, minute: number, duration: number) {
     this.id = id;
     this.trainer = trainer;
     this.member = member;
@@ -19,4 +19,13 @@ export default class Reservation {
     this.minute = minute;
     this.duration = duration;
   }
+}
+
+
+export interface ReservationListWithDate {
+  startDate: Date;
+  endDate: Date;
+  dates: {
+    [key: string]: Reservation[]; // "YYYY-MM-DD": [Reservation, Reservation, ...]
+  };
 }

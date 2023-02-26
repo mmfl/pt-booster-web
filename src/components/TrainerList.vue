@@ -26,15 +26,15 @@ const centreId = route.params.centreId as string
 
 <style scoped>
 .trainer-list {
-  @apply flex-initial border border-slate-300 rounded py-4 mr-4;
+  @apply flex-initial py-4 mr-4;
   min-width: 10rem;
 }
 
 .trainer-item {
-  @apply block py-2 px-4 hover:bg-violet-500 hover:text-slate-200 transition-colors duration-75;
+  @apply block py-2 px-4 mb-1 rounded hover:bg-violet-500 hover:text-slate-100 transition-colors duration-75;
 }
 
 .trainer-item.router-link-exact-active {
-  @apply bg-violet-600 text-slate-200 hover:bg-violet-600;
+  @apply bg-violet-600 text-slate-100 hover:bg-violet-600;
 }
 </style>

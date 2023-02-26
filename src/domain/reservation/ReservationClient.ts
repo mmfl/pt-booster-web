@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import Reservation from './Reservation';
 
 
-export const fetchReservationList = async (centreId: string, trainerId: string, date: string): Promise<AxiosResponse<Reservation[]>> => {
+export const fetchReservationList = async (centreId: string, trainerId: string, startDate: string, endDate?: string): Promise<AxiosResponse<Reservation[]>> => {
   const headers = {
     'Authorization': `Bearer ${localStorage.getItem('auth.accessToken')}`
   }
@@ -10,7 +10,8 @@ export const fetchReservationList = async (centreId: string, trainerId: string, 
   const response = axios.get(url, {
     headers: headers,
     params: {
-      date: date
+      start_date: startDate,
+      end_date: endDate,
     },
   })
   return response
