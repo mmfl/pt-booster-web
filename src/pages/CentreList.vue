@@ -24,6 +24,6 @@ centreStore.setCentreList()
 
 <style scoped>
 .item {
-  @apply block border border-slate-300 rounded p-4 hover:bg-violet-600 hover:text-slate-200 transition-colors duration-75
+  @apply block border border-slate-300 rounded p-4 mb-2 hover:bg-violet-600 hover:text-slate-200 transition-colors duration-75
 }
 </style>

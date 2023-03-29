@@ -5,7 +5,7 @@ import { useCentreStore } from '../stores/centre'
 import { useReservationStore } from '../stores/reservation';
 import TrainerList from '../components/TrainerList.vue'
 import DatePicker from '../components/DatePicker.vue'
-import ReservationList from '../components/ReservationList.vue'
+import ReservationTable from '../components/ReservationTable.vue'
 
 const route = useRoute();
 const router = useRouter();
@@ -63,6 +63,17 @@ watch(() => route.query.date, (newDate) => {
 })
 
 
+const date = ref(getFirstAndLastDayOfWeek(new Date(route.query.date as string || dateToString(new Date()))))
+
+
+function updateDate (newDate: Array<Date>) {
+  const trainerId = route.params.trainerId as string
+  if (trainerId) {
+    date.value = newDate
+    router.replace({ name: 'trainer-detail', params: { centreId, trainerId }, query: { date: dateToString(date.value[0]) }})
+  }
+}
+
 </script>
 
 <template>
@@ -71,11 +82,9 @@ watch(() => route.query.date, (newDate) => {
   </h1>
   <div class="flex">
     <TrainerList :trainer-list="centreStore.trainerList" />
-    <div class="flex-auto">
-      <div v-show="route.params.trainerId">
-        <DatePicker />
-      </div>
-      <ReservationList />
+    <div class="flex-auto w-0">
+      <DatePicker v-show="route.params.trainerId" :date="date" @update:date="(newDate) => {updateDate(newDate)}"/>
+      <ReservationTable :start-date="date[0]" :end-date="date[1]"/>
     </div>
   </div>
 </template>
